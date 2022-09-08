@@ -28,7 +28,10 @@ public class Cliente {
   private Auditoria aud = new Auditoria();
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)  //Configuración para cada que se crea un Cliente creara sus dependientes(relacionados), segundo parámetro por si desvinculo una dirección quede null(Se elimine de forma automática)
-  @JoinColumn(name = "cliente_id")                   //Si no pongo esta anotación Hibernate me propone una tabla intermedia para relacionar cliente y direcciones
+  //@JoinColumn(name = "cliente_id")     //Si no pongo esta anotación Hibernate me propone una tabla intermedia para relacionar cliente y direcciones, de esta manera se crea "cliente_id" como FK en tabla direcciones
+  @JoinTable(name = "clientes_direcciones", joinColumns = @JoinColumn(name = "id_cliente")  //De esta forma es como no poner las anotaciones e hibernate propone una tabla nueva
+            , inverseJoinColumns = @JoinColumn(name = "id_direccion")                       //pero la ventaja es que poniendo la anotación la puedo personalizar bastante
+            , uniqueConstraints = @UniqueConstraint(columnNames = {"id_direccion"}))
   private List<Direccion> listAddress;
 
   // ¡Siempre debe haber un constructor vacío! para que JPA pueda instancear la clase

@@ -24,7 +24,7 @@ public class HibernateAsociacionesOneToManyFind {
      client.getListAddress().add(direccion3);
 
      em.merge(client);  //Como ya existe el usuario lo modifico, gracias a la configuración "cascade" en anotación de Cliente se guarda el Cliente y también sus direcciones
-
+     System.out.println(client);
 
      em.getTransaction().commit();
    } catch ( Exception e ){
