@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")   //Nombre de tabla sql
@@ -25,12 +27,17 @@ public class Cliente {
   @Embedded   //Que se incluye alguna otra clase(TODOS LOS ATRIBUTOS, TODO EL CONTENIDO)
   private Auditoria aud = new Auditoria();
 
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)  //Configuración para cada que se crea un Cliente creara sus dependientes(relacionados)
+  @JoinColumn(name = "cliente_direcciones")                                       //Segundo parámetro por si desvinculo una dirección quede null(Se elimine de forma automática)
+  private List<Direccion> listAddress;
 
   // ¡Siempre debe haber un constructor vacío! para que JPA pueda instancear la clase
   public Cliente() {
+    this.listAddress = new ArrayList<>();
   }
 
   public Cliente(String name, String lastName) {
+    this();
     this.name = name;
     this.lastName = lastName;
   }
@@ -67,6 +74,14 @@ public class Cliente {
     this.wayToPay = wayToPay;
   }
 
+  public List<Direccion> getListAddress() {
+    return listAddress;
+  }
+
+  public void setListAddress(List<Direccion> listAddress) {
+    this.listAddress = listAddress;
+  }
+
   @Override
   public String toString() {
     LocalDateTime createIn = this.aud != null ?aud.getCreateIn() :null;
@@ -77,7 +92,9 @@ public class Cliente {
             ", lastName='" + lastName +
             ", wayToPay='" + wayToPay +
             ", creado en = " + createIn +
-            ", editado en = " + editedIn + " }";
+            ", editado en = " + editedIn +
+            ", direcciones = " + listAddress +
+            " }";
   }
 
   //Nota - V.510 Se explica como añadir una configuración en "persistence.xml" para que la tabla se elimine y se vuelva a crear al utilizarla

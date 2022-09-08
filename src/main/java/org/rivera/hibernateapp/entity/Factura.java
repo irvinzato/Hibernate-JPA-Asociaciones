@@ -2,6 +2,7 @@ package org.rivera.hibernateapp.entity;
 
 import jakarta.persistence.*;
 
+//Importante añadir en "persistence.xml" las clases involucradas para las tablas en DB
 @Entity
 @Table(name = "facturas")
 public class Factura {
