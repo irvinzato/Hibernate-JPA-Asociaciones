@@ -22,6 +22,8 @@ public class Alumno {
 
   //Alumno es la clase principal, no utilizo "CascadeType.ALL" porque cuando elimine un alumno el curso debe persistir
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}) //Como no le pongo @JoinColumn crea tabla intermedia
+  @JoinTable(name = "alumnos_cursos", joinColumns = @JoinColumn(name = "id_alumno") //Segundo atributo FK de la tabla principal, tercer atributo FK de la tabla secundaria
+            , inverseJoinColumns = @JoinColumn(name = "id_curso"), uniqueConstraints = @UniqueConstraint(columnNames = {"id_alumno", "id_curso"})) //Ultimo atributo que sean únicos los pares
   private List<Curso> listCourses;
 
   public Alumno() {

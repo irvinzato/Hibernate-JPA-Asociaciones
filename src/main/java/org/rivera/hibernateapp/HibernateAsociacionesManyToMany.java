@@ -7,10 +7,11 @@ import org.rivera.hibernateapp.util.JpaUtil;
 
 public class HibernateAsociacionesManyToMany {
   public static void main(String[] args) {
-    System.out.println("Ejemplo con tablas Alumno y Curso - Uni direccional");
+    System.out.println("Ejemplo con tablas Alumno y Curso - Uni direccional con alumnos nuevos");
     EntityManager em = JpaUtil.getEntityManager();
 
     try {
+      System.out.println("Primer transacción para crear alumnos y cursos nuevos");
       em.getTransaction().begin();
       Alumno student1 = new Alumno("Irving", "Rivera");
       Alumno student2 = new Alumno("Angeles", "Lopez");
@@ -28,6 +29,13 @@ public class HibernateAsociacionesManyToMany {
       em.getTransaction().commit();
       System.out.println(student1);
       System.out.println(student2);
+
+      System.out.println("Segunda transacción para borrar curso, SOLO EL CURSO DEL ALUMNO ! no el curso");
+      em.getTransaction().begin();
+      Curso courseRemove = em.find(Curso.class, 5L);
+      student1.getListCourses().remove(courseRemove);
+      em.getTransaction().commit();
+      System.out.println(student1);
     } catch (Exception e){
       em.getTransaction().rollback();
       e.printStackTrace();
