@@ -11,6 +11,7 @@ public class HibernateAsociacionesOneToManyFind {
     EntityManager em = JpaUtil.getEntityManager();
 
    try {
+     System.out.println("Primer transacción");
      em.getTransaction().begin();
 
      Cliente client = em.find(Cliente.class, 3L);
@@ -25,8 +26,16 @@ public class HibernateAsociacionesOneToManyFind {
 
      em.merge(client);  //Como ya existe el usuario lo modifico, gracias a la configuración "cascade" en anotación de Cliente se guarda el Cliente y también sus direcciones
      System.out.println(client);
-
      em.getTransaction().commit();
+
+     System.out.println("Segunda transacción");
+     em.getTransaction().begin();
+     direccion2 = em.find(Direccion.class, 2L); //Tengo que buscarla porque no estaba dentro del contexto(Solo tiene una relación con Cliente, no existía dentro del contexto)
+     client.getListAddress().remove(direccion2);
+     em.getTransaction().commit();
+     System.out.println(client);
+
+
    } catch ( Exception e ){
     em.getTransaction().rollback();
     e.printStackTrace();

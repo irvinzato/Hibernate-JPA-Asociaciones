@@ -11,6 +11,7 @@ public class HibernateAsociacionesOneToMany {
     EntityManager em = JpaUtil.getEntityManager();
 
    try {
+     System.out.println("Primer transacción");
      em.getTransaction().begin();
 
      Cliente client = new Cliente("Emperador", "Jade");
@@ -19,15 +20,24 @@ public class HibernateAsociacionesOneToMany {
      Direccion direccion1 = new Direccion("Hong", 2);
      Direccion direccion2 = new Direccion("Clish lomas", 212);
      Direccion direccion3 = new Direccion("Rufamina", 14);
-
      client.getListAddress().add(direccion1);
      client.getListAddress().add(direccion2);
      client.getListAddress().add(direccion3);
 
      em.persist(client);  //Gracias a la configuración "cascade" en anotación de Cliente se guarda el Cliente y también sus direcciones
 
-
      em.getTransaction().commit();
+     System.out.println(client);
+
+     //¿Qué pasa si borro una dirección? - por el "orphanRemoval" se elimina de la tabla "clientes_direcciones" y también de tabla "direcciones", sin el "orphanRemoval" queda huerfana en tabla "direcciones"
+     System.out.println("Segunda transacción");
+     em.getTransaction().begin();
+     //client = em.find(Cliente.class, client.getId());
+     client.getListAddress().remove(direccion1);
+     em.getTransaction().commit();
+     System.out.println(client);
+
+
    } catch ( Exception e ){
     em.getTransaction().rollback();
     e.printStackTrace();
