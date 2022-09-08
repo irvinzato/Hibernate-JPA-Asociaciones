@@ -38,6 +38,9 @@ public class Cliente {
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")  //"mappedBy" hace referencia a la variable que puse en "Factura", la que contiene la relación
   private List<Factura> listFactures;
 
+  @OneToOne         //Si no tiene cascade, debe existir el detalle del cliente en las tablas antes de asignarlo
+  @JoinColumn(name = "id_detalle")  //La FK está donde contiene el atributo, por ejemplo esta clase la tiene
+  private ClienteDetalle clientDetail;
 
   // ¡Siempre debe haber un constructor vacío! para que JPA pueda instancear la clase
   public Cliente() {
@@ -109,6 +112,14 @@ public class Cliente {
     facture.setClient(null);    //Relación inversa
   }
 
+  public ClienteDetalle getClientDetail() {
+    return clientDetail;
+  }
+
+  public void setClientDetail(ClienteDetalle clientDetail) {
+    this.clientDetail = clientDetail;
+  }
+
   @Override
   public String toString() {
     LocalDateTime createIn = this.aud != null ?aud.getCreateIn() :null;
@@ -122,6 +133,7 @@ public class Cliente {
             ", editado en = " + editedIn +
             ", direcciones = " + listAddress +
             ", facturas = " + listFactures +
+            ", detalle = " + clientDetail +
             " }";
   }
 
