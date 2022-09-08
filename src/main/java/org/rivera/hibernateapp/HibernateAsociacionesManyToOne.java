@@ -9,6 +9,7 @@ public class HibernateAsociacionesManyToOne {
   public static void main(String[] args) {
 
     System.out.println("TENGO CONFIGURACIÓN 'drop-and-create' EN XML PARA CREAR Y DESTRUIR TABLAS CADA QUE EJECUTO");
+    System.out.println("Facturas tiene relación inversa con Cliente - OneToMany y ManyToOne");
     EntityManager em = JpaUtil.getEntityManager();
 
     try{

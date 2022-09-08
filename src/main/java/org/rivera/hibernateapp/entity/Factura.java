@@ -67,6 +67,6 @@ public class Factura {
             "id=" + id +
             ", description='" + description +
             ", total=" + total +
-            ", FK= " + client + " }";
+            " }";
   }
 }

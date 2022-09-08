@@ -34,9 +34,15 @@ public class Cliente {
             , uniqueConstraints = @UniqueConstraint(columnNames = {"id_direccion"}))
   private List<Direccion> listAddress;
 
+  //Esta relación es "bi direccional" no lleva "@JoinColum" porque la FK está en la tabla "facturas"
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")  //"mappedBy" hace referencia a la variable que puse en "Factura", la que contiene la relación
+  private List<Factura> listFactures;
+
+
   // ¡Siempre debe haber un constructor vacío! para que JPA pueda instancear la clase
   public Cliente() {
     this.listAddress = new ArrayList<>();
+    this.listFactures = new ArrayList<>();
   }
 
   public Cliente(String name, String lastName) {
@@ -85,6 +91,19 @@ public class Cliente {
     this.listAddress = listAddress;
   }
 
+  public List<Factura> getListFactures() {
+    return listFactures;
+  }
+
+  public void setListFactures(List<Factura> listFactures) {
+    this.listFactures = listFactures;
+  }
+
+  public void addFacture(Factura facture) {
+    this.listFactures.add(facture);
+    facture.setClient(this);
+  }
+
   @Override
   public String toString() {
     LocalDateTime createIn = this.aud != null ?aud.getCreateIn() :null;
@@ -97,6 +116,7 @@ public class Cliente {
             ", creado en = " + createIn +
             ", editado en = " + editedIn +
             ", direcciones = " + listAddress +
+            ", facturas = " + listFactures +
             " }";
   }
 
