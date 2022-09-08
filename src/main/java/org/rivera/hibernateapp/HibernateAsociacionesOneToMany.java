@@ -11,7 +11,7 @@ public class HibernateAsociacionesOneToMany {
     EntityManager em = JpaUtil.getEntityManager();
 
    try {
-     System.out.println("Primer transacción");
+     System.out.println("Primer transacción - Añado direcciones a un Cliente nuevo");
      em.getTransaction().begin();
 
      Cliente client = new Cliente("Emperador", "Jade");
@@ -30,7 +30,7 @@ public class HibernateAsociacionesOneToMany {
      System.out.println(client);
 
      //¿Qué pasa si borro una dirección? - por el "orphanRemoval" se elimina de la tabla "clientes_direcciones" y también de tabla "direcciones", sin el "orphanRemoval" queda huerfana en tabla "direcciones"
-     System.out.println("Segunda transacción");
+     System.out.println("Segunda transacción - Elimino dirección a Cliente");
      em.getTransaction().begin();
      //client = em.find(Cliente.class, client.getId());
      client.getListAddress().remove(direccion1);

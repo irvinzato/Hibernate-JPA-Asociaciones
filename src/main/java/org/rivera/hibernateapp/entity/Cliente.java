@@ -101,7 +101,12 @@ public class Cliente {
 
   public void addFacture(Factura facture) {
     this.listFactures.add(facture);
-    facture.setClient(this);
+    facture.setClient(this);    //Relación inversa
+  }
+
+  public void removeFacture(Factura facture) {
+    this.listFactures.remove(facture);
+    facture.setClient(null);    //Relación inversa
   }
 
   @Override

@@ -11,7 +11,7 @@ public class HibernateAsociacionesOneToManyFind {
     EntityManager em = JpaUtil.getEntityManager();
 
    try {
-     System.out.println("Primer transacción");
+     System.out.println("Primer transacción - Añado direcciones a un Cliente ya existente");
      em.getTransaction().begin();
 
      Cliente client = em.find(Cliente.class, 3L);
@@ -28,7 +28,7 @@ public class HibernateAsociacionesOneToManyFind {
      System.out.println(client);
      em.getTransaction().commit();
 
-     System.out.println("Segunda transacción");
+     System.out.println("Segunda transacción - Elimino dirección a Cliente existente");
      em.getTransaction().begin();
      direccion2 = em.find(Direccion.class, 2L); //Tengo que buscarla porque no estaba dentro del contexto(Solo tiene una relación con Cliente, no existía dentro del contexto)
      client.getListAddress().remove(direccion2);

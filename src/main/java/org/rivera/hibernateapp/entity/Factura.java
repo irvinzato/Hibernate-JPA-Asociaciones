@@ -2,6 +2,8 @@ package org.rivera.hibernateapp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 //Importante añadir en "persistence.xml" las clases involucradas para las tablas en DB
 @Entity
 @Table(name = "facturas")
@@ -68,5 +70,18 @@ public class Factura {
             ", description='" + description +
             ", total=" + total +
             " }";
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Factura factura = (Factura) o;
+    return Objects.equals(id, factura.id) && Objects.equals(description, factura.description) && Objects.equals(total, factura.total);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id, description, total);
   }
 }

@@ -11,6 +11,7 @@ public class HibernateAsociacionesOneToManyBiDireccionalFind {
     EntityManager em = JpaUtil.getEntityManager();
 
     try {
+      System.out.println("Primer transacción - Encontrar Cliente y añadirle facturas");
       em.getTransaction().begin();
       Cliente client = em.find(Cliente.class, 8L);
 
@@ -23,6 +24,14 @@ public class HibernateAsociacionesOneToManyBiDireccionalFind {
       client.addFacture(facture2);
 
       em.merge(client);   //Es opcional porque el commit detecta que modifique un Cliente
+      em.getTransaction().commit();
+      System.out.println(client);
+
+      System.out.println("Segunda transacción - Eliminar factura a Cliente, importante la misma relación bi direccional para quitar de la lista y dejar null la factura Cliente");
+      System.out.println("Esta opción es para dentro del contexto de persistencia, hay una segunda opción cuando esta fuera implementando equals del objeto - V518");
+      em.getTransaction().begin();
+      Factura factureFind = em.find(Factura.class, 2L);
+      client.removeFacture(factureFind);
       em.getTransaction().commit();
       System.out.println(client);
 
