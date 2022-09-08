@@ -6,6 +6,8 @@
         <class> org.rivera.hibernateapp.entity.Factura </class>
         <class> org.rivera.hibernateapp.entity.Direccion </class>
         <class> org.rivera.hibernateapp.entity.ClienteDetalle </class>
+        <class>org.rivera.hibernateapp.entity.Curso</class>
+        <class>org.rivera.hibernateapp.entity.Alumno</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/java_curso_hibernate?serverTimezone=GMT-5" />
             <property name="jakarta.persistence.jdbc.user" value="root" />
