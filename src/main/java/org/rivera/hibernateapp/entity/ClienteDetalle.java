@@ -14,9 +14,9 @@ public class ClienteDetalle {
   @Column(name = "puntos_acumulados")
   private Long accumulatedPoints;
 
-  /* @OneToOne //La FK está donde contiene el atributo, por ejemplo esta clase la tiene - Comente porque quiero que la FK este en tabla "clientes"
-  @JoinColumn(name = "id_cliente")
-  private Cliente client; */
+  @OneToOne
+  @JoinColumn(name = "id_cliente_detalle")  //Relación bi direccional, esta tabla tiene la FK
+  private Cliente client;
 
   public ClienteDetalle() {
   }
@@ -48,6 +48,14 @@ public class ClienteDetalle {
 
   public void setAccumulatedPoints(Long accumulatedPoints) {
     this.accumulatedPoints = accumulatedPoints;
+  }
+
+  public Cliente getClient() {
+    return client;
+  }
+
+  public void setClient(Cliente client) {
+    this.client = client;
   }
 
   @Override

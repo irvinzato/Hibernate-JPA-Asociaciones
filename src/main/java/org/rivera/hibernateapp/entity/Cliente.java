@@ -38,8 +38,7 @@ public class Cliente {
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")  //"mappedBy" hace referencia a la variable que puse en "Factura", la que contiene la relación
   private List<Factura> listFactures;
 
-  @OneToOne         //Si no tiene cascade, debe existir el detalle del cliente en las tablas antes de asignarlo
-  @JoinColumn(name = "id_detalle")  //La FK está donde contiene el atributo, por ejemplo esta clase la tiene
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")         //Nunca puede haber un @JoinColum con un "mappedBy"
   private ClienteDetalle clientDetail;
 
   // ¡Siempre debe haber un constructor vacío! para que JPA pueda instancear la clase
@@ -118,6 +117,16 @@ public class Cliente {
 
   public void setClientDetail(ClienteDetalle clientDetail) {
     this.clientDetail = clientDetail;
+  }
+
+  public void addDetailClient(ClienteDetalle detail) {
+    this.clientDetail = detail;
+    detail.setClient(this);
+  }
+
+  public void removeDetailClient() {
+    this.clientDetail.setClient(null);
+    this.clientDetail = null;
   }
 
   @Override
