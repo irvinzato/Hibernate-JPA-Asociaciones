@@ -19,7 +19,7 @@ public class Factura {
   @Column(name = "total")
   private Long total;
 
-  @ManyToOne  //Muchas Facturas, un cliente
+  @ManyToOne(fetch = FetchType.LAZY)  //Muchas Facturas, un cliente
   @JoinColumn(name = "id_cliente") //Asigno de forma manual el nombre de la llave foránea
   private Cliente client;   //Importante la llave foránea
 

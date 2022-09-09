@@ -5,3 +5,4 @@ INSERT INTO direcciones (calle, numero) VALUES ("Humores", 135),("Juarez", 23);
 INSERT INTO clientes_direcciones (id_cliente, id_direccion) VALUES (1,1),(1,2);
 INSERT INTO clientes_detalles (id, prime, puntos_acumulados, id_cliente_detalle) VALUES (1, 1, 5000, 1);
 INSERT INTO alumnos_cursos (id_alumno, id_curso) VALUES (1,1),(1,3),(2,2);
+INSERT INTO facturas (id, descripcion, total, id_cliente) VALUES (1,"Compra de computadora",16000,3),(2,"Compra de muebles",8000,2),(3,"Compra de silla gamer",25000,1),(4,"Compra de mancuernas",5000,1);

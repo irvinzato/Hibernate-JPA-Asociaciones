@@ -1,4 +1,4 @@
-package org.rivera.hibernateapp.fetchtype;
+package org.rivera.hibernateapp.fetchtypejpql;
 
 import jakarta.persistence.EntityManager;
 import org.rivera.hibernateapp.entity.Alumno;
