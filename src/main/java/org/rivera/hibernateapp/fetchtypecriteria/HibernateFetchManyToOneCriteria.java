@@ -30,7 +30,5 @@ public class HibernateFetchManyToOneCriteria {
     System.out.println("Cambie su relación ManyToOne de facturas a LAZY para que no cargue todo desde un inicio, solo si es requerida");
     listFactures.forEach(f -> System.out.println(f.getDescription() + " Cliente: " + f.getClient().getName()));
     em.close();
-
-
   }
 }
