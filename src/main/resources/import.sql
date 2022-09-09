@@ -3,3 +3,4 @@ INSERT INTO alumnos (id, nombre, apellido) VALUES (1,"Joana","Dimas"),(2,"Laura"
 INSERT INTO cursos (id, titulo, profesor) VALUES (1,"Docker","Ruben"),(2,"FlexBox","Dalto"),(3,"React","Teresa");
 INSERT INTO direcciones (calle, numero) VALUES ("Humores", 135),("Juarez", 23);
 INSERT INTO clientes_direcciones (id_cliente, id_direccion) VALUES (1,1),(1,2);
+INSERT INTO clientes_detalles (id, prime, puntos_acumulados, id_cliente_detalle) VALUES (1, 1, 5000, 1);
