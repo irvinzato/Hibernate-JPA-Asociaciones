@@ -101,6 +101,7 @@ public class Cliente {
     this.listFactures = listFactures;
   }
 
+  //Estos métodos son solo cuando hay relación bi direccional por la contra parte
   public void addFacture(Factura facture) {
     this.listFactures.add(facture);
     facture.setClient(this);    //Relación inversa

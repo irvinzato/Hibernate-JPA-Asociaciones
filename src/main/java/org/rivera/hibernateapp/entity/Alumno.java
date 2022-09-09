@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 //EJEMPLO TOTALMENTE DIFERENTE DE LOS ANTERIORES PARA TRABAJAR CON "MANYTOMANY"
 @Entity
@@ -66,6 +67,30 @@ public class Alumno {
 
   public void setListCourses(List<Curso> listCourses) {
     this.listCourses = listCourses;
+  }
+
+  //Estos métodos son solo cuando hay relación bi direccional por la contra parte
+  public void addCourse(Curso course) {
+    this.listCourses.add(course);
+    course.getListStudents().add(this);
+  }
+
+  public void removeCourse(Curso course) {
+    this.listCourses.remove(course);
+    course.getListStudents().remove(this);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Alumno alumno = (Alumno) o;
+    return Objects.equals(id, alumno.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
   }
 
   @Override
